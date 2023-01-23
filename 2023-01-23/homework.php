@@ -31,7 +31,7 @@
     $random_array2 = [];
     $random_array3 = [];
 
-echo '<p>first array</p>';
+echo '<p>Pirmas masyvas</p>';
 for ($i = 0; $i < 200; $i++) {
     $random_letter = $letters[array_rand($letters)];
     array_push($random_array1, $random_letter);
@@ -39,7 +39,7 @@ for ($i = 0; $i < 200; $i++) {
 print_r($random_array1);
 
 
-echo '<p>second array</p>';
+echo '<p>Antras masyvas</p>';
 for ($i = 0; $i < 200; $i++) {
     $random_letter = $letters[array_rand($letters)];
     array_push($random_array2, $random_letter);
@@ -47,7 +47,7 @@ for ($i = 0; $i < 200; $i++) {
 print_r($random_array2);
 
 
-echo '<p>third array</p>';
+echo '<p>Trecias masyvas</p>';
 for ($i = 0; $i < 200; $i++) {
     $random_letter = $letters[array_rand($letters)];
     array_push($random_array3, $random_letter);
@@ -55,7 +55,7 @@ for ($i = 0; $i < 200; $i++) {
 print_r($random_array3);
 
 
-echo '<p>mixed array by index</p>';
+echo '<p>Sudetinis masyvas</p>';
 $mixed_array = [];
 for ($i = 0; $i < 200; $i++) {
     $mixed = $random_array1[$i] . $random_array2[$i] . $random_array3[$i];
