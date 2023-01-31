@@ -47,20 +47,6 @@
                   </tbody>
             </table>
 
-            <div>
-                  <?php
-                  $string = "math";
-                  for ($l = 0; $l < strlen($string); $l++) {
-                        echo '<span>' . strtoupper(substr($string, $l, 1)) . '</span>';
-                        if (substr($string, $l, 1) != substr($string, strlen($string) - 1)) {
-                              echo '<span> + </span>';
-                        }
-                  }
-
-                  ?>
-                  <span> = </span>
-                  <img src="love.jpg" alt="love" />
-            </div>
       </main>
 
 </body>
