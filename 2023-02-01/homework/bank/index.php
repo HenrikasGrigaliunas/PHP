@@ -1,3 +1,5 @@
+<?php session_start(); ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,20 +20,27 @@
             $page = isset($_GET['page']) ? $_GET['page'] : '';
 
             switch($page) {
-                case 'signin':
-                    include './views/signin.php';
+                case 'account':
+                    include './views/account.php';
+                    break;
+                case 'logout':
+                    session_destroy();
+                    include './views/services.php';
+                    break;
+                case 'login':
+                    include './views/login.php';
                     break;
                 case 'korteles':
-                    include './views/korteles.php';
+                    include './views/cards.php';
                     break;
                 case 'paskolos':
-                    include './views/paskolos.php';
+                    include './views/loans.php';
                     break;
                 case 'pensija':
-                    include './views/pensija.php';
+                    include './views/pension.php';
                     break;
                 default:
-                    include './views/paslaugos.php';
+                    include './views/services.php';
             }
             ?>
 
