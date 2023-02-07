@@ -102,53 +102,7 @@
                         <th>Balansas</th>
                   </tr>
             </thead>
-            <tbody>
-                   <?php 
-                  if (!empty($Client["transfers"])){
-                        foreach($Client["transfers"] as $key => $value){
-                  ?>
-                  <tr class="<?php
-                        if ($value[0]["sender"]==$Client["name"]){
-                              echo "table-danger";
-                        }else{
-                              echo "table-success";
-                        }
-                        ?>
-                  ">
-                        <td>
-                              <?=$key+1?>
-                        </td>
-                        <td>
-                              <?=$value[0]["date"]?>
-                        </td>
-                        <td>
-                              <?php 
-                              if ($value[0]["sender"]==$Client["name"]){
-                                    echo $value[0]["reciever"];
-                              }else{
-                                    echo $value[0]["sender"];
-                              }?>
-                        </td>
-                        <td>
-                              <?=$value[0]["sum"]?>
-                        </td>
-                        <td>
-                              <?php 
-                               if ($value[0]["sender"]==$Client["name"]){
-                                    echo 0.43;
-                                    } ?>
-                        </td>
-                        <td>
-                              <?php
-                              if ($value[0]["sender"]==$Client["name"]){
-                                    echo $value[0]["senBal"];
-                              }else{
-                                    echo $value[0]["recBal"];
-                              }
-                                    }}?>
-                        </td>
-                  </tr>
-            </tbody>
+            
         </table>                           
 
 <?php if(isset($_GET['message'])) : ?>
