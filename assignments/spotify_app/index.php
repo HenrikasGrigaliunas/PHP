@@ -1,7 +1,7 @@
 <?php
     session_start();
 
-    //print_r($_SESSION);
+    print_r($_SESSION);
 
     try {
    $db = new mysqli('localhost', 'root', '', 'spotify');

@@ -1,19 +1,20 @@
 <?php
-if (empty($_SESSION['user']) or $_SESSION['user']['role'] === '0') {
-    header('Location: ?page=login');
-    exit;
-}
-if(!empty($_POST)) {
-    $query = vsprintf(
-        "INSERT INTO songs (name, author, album, year, link ) VALUES('%s', '%s', '%s', '%s', '%s')",
-        $_POST
-    );
-     $db->query($query);
-}
-$songs =$db->query("SELECT * FROM songs");
-$songs = $songs->fetch_all(MYSQLI_ASSOC);
-?>
+    if(empty($_SESSION['user']) OR $_SESSION['user']['role'] === '0') {
+        header('Location: ?page=login');
+        exit;
+    }
 
+    if(!empty($_POST)) {
+        $query = vsprintf(
+            "INSERT INTO songs (name, author, album, year, link) VALUES('%s', '%s', '%s', '%s', '%s')",
+            $_POST
+        );
+        $db->query($query);
+    }
+
+    $songs = $db->query("SELECT * FROM songs");
+    $songs = $songs->fetch_all(MYSQLI_ASSOC);
+?>
 
 <h1>Admin</h1>
 <table class="table">
@@ -25,7 +26,7 @@ $songs = $songs->fetch_all(MYSQLI_ASSOC);
             <th>Album</th>
             <th>Year</th>
             <th>Link</th>
-            <th>Date Added</th>
+            <th>Date added</th>
         </tr>
     </thead>
     <tbody>
@@ -38,10 +39,7 @@ $songs = $songs->fetch_all(MYSQLI_ASSOC);
                 <td><?= $song['year'] ?></td>
                 <td><?= $song['link'] ?></td>
                 <td><?= $song['created_at'] ?></td>
-                <td><?= $song['id'] ?></td>
-                
             </tr>
-
         <?php endforeach; ?>    
     </tbody>
 </table>
@@ -68,5 +66,4 @@ $songs = $songs->fetch_all(MYSQLI_ASSOC);
         <input type="text" name="link" class="form-control" />
     </div>
     <button class="btn btn-primary">Create Song</button>
-
 </form>
