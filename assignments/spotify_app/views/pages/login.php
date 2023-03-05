@@ -2,7 +2,7 @@
     if(!empty($_POST)) {
         $email = $_POST['email'];
         $password = md5($_POST['password']);
-        $user = $db->query("SELECT id, role FROM users WHERE email = '{$email}' AND password = '{$password}'");
+       
         //print_r($user->fetch_row());
         //print_r($user->num_rows);
         //exit;
@@ -11,6 +11,8 @@
             'message' => 'Toks vartotojas nerastas',
             'status' => 'danger'
          ];
+
+         $user = $db->query("SELECT id, role FROM users WHERE email = '{$email}' AND password = '{$password}'");
 
         if($user->num_rows === 0) {
             header('Location: ?' . http_build_query($params));
@@ -23,13 +25,22 @@
         $_SESSION['user']['id'] = $user[0];
         $_SESSION['user']['role'] = $user[1];
 
-      header('Location: index.php');
-      exit;
+      //header('Location: index.php');
+      //exit;
+      if($user[1] === '1') {
+        header('Location: ?page=admin');
+        exit;
+    } else {
+        header('Location: ?page=main');
+        exit;
     }
+}
 ?>
-<h1>Login</h1>
 
-<form method="POST">
+<form method="POST" class="login">
+
+   <h1>Login</h1>
+
     <div class="mb-3">
         <label>Email address</label>
         <input type="email" name="email" placeholder="test@gmail.com" class="form-control" required />
