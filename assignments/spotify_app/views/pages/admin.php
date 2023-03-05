@@ -5,22 +5,60 @@
     }
 
     if(!empty($_POST)) {
+
+        if(!empty($_FILES['photo']['tmp_name'])) {
+            if(!is_dir('./uploads')) {
+                mkdir('./uploads');
+            }
+    
+            $filename = explode('.', $_FILES['photo']['name']);
+            $filename = time() . '.' . $filename[count($filename) - 1];
+    
+            $imageTypes = ['image/apng', 'image/avif', 'image/gif', 'image/jpeg', 'image/png', 'image/svg+xml', 'image/webp'];
+    
+            if (!in_array($_FILES['photo']['type'], $imageTypes)) {
+                $params = [
+                    'page' => 'admin',
+                    'message' => 'Neteisingas failo formatas',
+                    'status' => 'danger'
+                ];
+    
+                header('Location: ?' . http_build_query($params));
+                exit;
+            }
+    
+            move_uploaded_file($_FILES['photo']['tmp_name'], './uploads/' . $filename);
+    
+            $_POST['photo'] = $filename;
+            // header('Location: ?page=admin');
+            // exit;
+        }
+        //print_r($_POST);
+
         $query = vsprintf(
-            "INSERT INTO songs (name, author, album, year, link) VALUES('%s', '%s', '%s', '%s', '%s')",
+            "INSERT INTO songs (name, author, album, year, link, photo) VALUES('%s', '%s', '%s', '%s', '%s', '%s')",
             $_POST
         );
         $db->query($query);
+
+        header('Location: ?page=admin');
+    exit;
     }
 
     $songs = $db->query("SELECT * FROM songs");
     $songs = $songs->fetch_all(MYSQLI_ASSOC);
 ?>
 
+<div>
+    <a href="?page=logout" class="btn btn-outline-danger float-end">Logout</a>
+</div>
+
 <h1>Admin</h1>
 <table class="table">
     <thead>
         <tr>
             <th>ID</th>
+            <th>Cover</th>
             <th>Song Name</th>
             <th>Author</th>
             <th>Album</th>
@@ -33,6 +71,7 @@
         <?php foreach($songs as $song): ?>
             <tr>
                 <td><?= $song['id'] ?></td>
+                <td><img src="./uploads/<?= $song['photo'] ?>" alt="cover" style="width: 50px;"></td>
                 <td><?= $song['name'] ?></td>
                 <td><?= $song['author'] ?></td>
                 <td><?= $song['album'] ?></td>
@@ -65,5 +104,9 @@
         <label>Youtube Link:</label>
         <input type="text" name="link" class="form-control" />
     </div>
-    <button class="btn btn-primary">Create Song</button>
+    <div class="mb-3">
+        <label>Song cover:</label>
+        <input type="file" name="photo" class="form-control">
+    </div>
+    <button class="btn btn-primary">Add</button>
 </form>

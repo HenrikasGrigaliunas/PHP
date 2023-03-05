@@ -1,7 +1,7 @@
 <?php
     session_start();
 
-    print_r($_SESSION);
+    //print_r($_SESSION);
 
     try {
    $db = new mysqli('localhost', 'root', '', 'spotify');
@@ -20,10 +20,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spotify</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-  
+    <link rel="stylesheet" href="assets/style.css">
 </head>
 
 <body>
+
+<?php include('views/components/header.php'); ?>
+
     <div class="container">
   
     <?php if(isset($_GET['message'])) : ?>
@@ -32,6 +35,7 @@
         </div>
         <?php endif; ?>
         <?php
+
         $page = isset($_GET['page']) ? $_GET['page'] : ' ';
 
         switch ($page) {
@@ -44,11 +48,30 @@
             case 'admin':
                 include './views/pages/admin.php';
                 break;
+            case 'main':
+                    include('views/pages/main.php');
+                    break;
+            case 'front-page':
+                    include('views/pages/front-page.php');
+                    break;
+            case 'playlist':
+                    include('views/pages/playlist.php');
+                    break;
+            case 'user_playlists':
+                    include('views/pages/user_playlists.php');
+                    break;
+            case 'logout':
+                    session_destroy();
+                    include('views/pages/front-page.php');
+                    break;
             default:
-                include './views/pages/main.php';
+                    include('views/pages/front-page.php');
         }
         ?>
     </div>
+
+    <?php include('views/components/footer.php'); ?>
+
 </body>
 
 </html>
